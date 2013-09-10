@@ -1,0 +1,4 @@
+virtualenv
+config.py
+*.pyc
+test.tmp
