@@ -16,6 +16,9 @@ systems={
     'audio': 'Soundtrack',
 }
 
+if not os.path.isdir(outfolder):
+    print("%s does not exist." % outfolder)
+
 c = pycurl.Curl()
 c.setopt(c.URL, 'https://www.humblebundle.com/login')
 c.setopt(c.POSTFIELDS, 'goto=/home&qs=&username=%s&password=%s&submit=Log%%20In' % (username, password))
@@ -32,6 +35,10 @@ c.close()
 content = storage.getvalue()
 
 soup=BeautifulSoup(content)
+
+if not os.path.isdir("%s/All" % outfolder):
+    os.mkdir("%s/All" % outfolder)
+
 for game in soup(attrs={'class': 'row'}):
     title=game(attrs={'class': 'title'})[0].find("a").contents[0]
     for downloads in game(attrs={'class': 'downloads'}):
